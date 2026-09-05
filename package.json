@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "seed": "node src/utils/seed.js",
     "seed:destroy": "node src/utils/seed.js --destroy",
-    "seed:admin": "node src/utils/seedAdmin.js"
+    "seed:admin": "node src/utils/seedAdmin.js",
+     "fix-indexes": "node src/utils/syncIndexes.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
