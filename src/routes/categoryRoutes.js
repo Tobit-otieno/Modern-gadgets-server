@@ -9,6 +9,7 @@ const {
   addSubcategory,
   updateSubcategory,
   deleteSubcategory,
+  reorderSubcategories,
 } = require("../controllers/categoryController");
 
 // TODO: once auth is added, protect the write routes below with an
@@ -24,5 +25,5 @@ router.route("/id/:id").put(updateCategory).delete(deleteCategory);
 
 router.post("/id/:id/subcategories", addSubcategory);
 router.route("/id/:id/subcategories/:subId").put(updateSubcategory).delete(deleteSubcategory);
-
+router.put("/id/:id/subcategories/reorder", reorderSubcategories);
 module.exports = router;

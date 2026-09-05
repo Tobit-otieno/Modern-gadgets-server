@@ -5,8 +5,11 @@ const subcategorySchema = new mongoose.Schema(
     slug: { type: String, required: true, trim: true, lowercase: true },
     name: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
-    // Thumbnail used in the storefront's hover dropdown menus
     image: { type: String, trim: true },
+    seo: {
+      metaTitle: { type: String, trim: true },
+      metaDescription: { type: String, trim: true },
+    },
   },
   { _id: true }
 );

@@ -108,6 +108,32 @@ const deleteSubcategory = asyncHandler(async (req, res) => {
   res.json({ success: true, data: category });
 });
 
+// @desc    Reorder subcategories within a category (drag-to-reorder in the dashboard)
+// @route   PUT /api/categories/id/:id/subcategories/reorder
+// @access  Private/Admin
+// Body: { order: string[] } — an array of subcategory _ids in the desired order.
+// Only reorders; every other field on each subcategory is left untouched.
+const reorderSubcategories = asyncHandler(async (req, res) => {
+  const category = await Category.findById(req.params.id);
+  if (!category) throw new ApiError(404, "Category not found");
+
+  const { order } = req.body;
+  if (!Array.isArray(order)) throw new ApiError(400, "order must be an array of subcategory ids");
+
+  const currentIds = category.subcategories.map((s) => String(s._id));
+  const sameSet =
+    order.length === currentIds.length && order.every((id) => currentIds.includes(id));
+  if (!sameSet) {
+    throw new ApiError(400, "order must contain exactly the current subcategory ids, no more or fewer");
+  }
+
+  const bySubId = new Map(category.subcategories.map((s) => [String(s._id), s]));
+  category.subcategories = order.map((id) => bySubId.get(id));
+
+  await category.save();
+  res.json({ success: true, data: category });
+});
+
 module.exports = {
   getCategories,
   getCategoryBySlug,
@@ -117,4 +143,5 @@ module.exports = {
   addSubcategory,
   updateSubcategory,
   deleteSubcategory,
+  reorderSubcategories,
 };
