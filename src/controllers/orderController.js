@@ -13,10 +13,21 @@ const generateOrderNumber = () => {
 // @route   POST /api/orders
 // @access  Public
 const createOrder = asyncHandler(async (req, res) => {
-  const { customer, items, deliveryFee = 0, paymentMethod } = req.body;
+  const {
+    customer,
+    items,
+    deliveryFee = 0,
+    paymentMethod,
+    deliveryMethod = "delivery",
+    customerNotes,
+  } = req.body;
 
   if (!customer || !items || items.length === 0) {
     throw new ApiError(400, "customer details and at least one item are required");
+  }
+
+  if (deliveryMethod === "delivery" && (!customer.address || !customer.city)) {
+    throw new ApiError(400, "address and city are required for delivery orders");
   }
 
   // Re-price every item from the database rather than trusting the client,
@@ -46,11 +57,13 @@ const createOrder = asyncHandler(async (req, res) => {
   const order = await Order.create({
     orderNumber: generateOrderNumber(),
     customer,
+    deliveryMethod,
     items: orderItems,
     subtotal,
     deliveryFee,
     total: subtotal + deliveryFee,
     paymentMethod,
+    customerNotes,
   });
 
   // Decrement stock now that the order is confirmed.
