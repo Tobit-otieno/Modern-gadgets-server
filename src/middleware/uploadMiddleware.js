@@ -1,7 +1,7 @@
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-// Create uploads directory if it doesn't exist
+
 const uploadDir = path.join(process.cwd(), 'uploads');
 
 if (!fs.existsSync(uploadDir)) {
@@ -19,19 +19,11 @@ const storage = multer.diskStorage({
   }
 });
 
-// Accept all image types including HEIF/HEIC (Apple format) and RAW
 const fileFilter = (req, file, cb) => {
   const allowedMimetypes = [
-    'image/jpeg',
-    'image/jpg',
-    'image/png',
-    'image/webp',
-    'image/gif',
-    'image/heic',
-    'image/heif',
-    'image/avif',
-    'image/tiff',
-    'application/octet-stream', // some HEIC files come through as this
+    'image/jpeg', 'image/jpg', 'image/png', 'image/webp',
+    'image/gif', 'image/heic', 'image/heif', 'image/avif',
+    'image/tiff', 'application/octet-stream',
   ];
 
   const allowedExtensions = [
@@ -49,11 +41,9 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB to handle high res and RAW images
-  }
+  storage,
+  fileFilter,
+  limits: { fileSize: 50 * 1024 * 1024 }
 });
 
-export default upload;
+module.exports = upload;
