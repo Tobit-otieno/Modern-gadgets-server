@@ -15,7 +15,7 @@ const {
 
 const cloudinary = require("../utils/cloudinary");
 const upload = require('../middleware/uploadMiddleware');
-import fs from "fs";
+const fs = require("fs");
 
 // TODO: once auth is added, protect the write routes below with an
 // admin-only middleware (e.g. router.post("/", protect, admin, createProduct)).

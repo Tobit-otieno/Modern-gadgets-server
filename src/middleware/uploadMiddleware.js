@@ -1,7 +1,6 @@
-import multer from 'multer';
-import fs from 'fs';
-import path from 'path';
-
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 // Create uploads directory if it doesn't exist
 const uploadDir = path.join(process.cwd(), 'uploads');
 
