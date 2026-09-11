@@ -26,6 +26,9 @@ const getProducts = asyncHandler(async (req, res) => {
   });
 });
 
+
+
+
 // @desc    Get a single product by slug
 // @route   GET /api/products/:slug
 // @access  Public
