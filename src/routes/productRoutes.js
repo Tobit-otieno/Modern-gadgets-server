@@ -14,7 +14,7 @@ const {
 
 
 import cloudinary from "../utils/cloudinary.js";
-import upload from "../middlewares/uploadMidleware.js"
+import upload from "../middleware/uploadMiddleware.js"
 import fs from "fs";
 
 // TODO: once auth is added, protect the write routes below with an
