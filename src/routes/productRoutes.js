@@ -13,7 +13,7 @@ const {
 } = require("../controllers/productController");
 
 
-import cloudinary from "../utilities/cloudinary.js"
+import cloudinary from "../utils/cloudinary.js";
 import upload from "../middlewares/uploadMidleware.js"
 import fs from "fs";
 
