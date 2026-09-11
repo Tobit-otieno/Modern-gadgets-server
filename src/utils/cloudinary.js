@@ -1,6 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
-import dotenv from 'dotenv';
-dotenv.config();
+const { v2: cloudinary } = require('cloudinary');
+require('dotenv').config();
 
 const requiredConfig = [
   'CLOUDINARY_CLOUD_NAME',
@@ -13,12 +12,12 @@ for (const key of requiredConfig) {
     throw new Error(`Missing Cloudinary config: ${key}`);
   }
 }
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET || process.env.CLOUDINARY_SECRET_KEY,
-  secure: true 
+  secure: true
 });
 
-
-export default cloudinary;
+module.exports = cloudinary;

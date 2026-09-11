@@ -13,8 +13,8 @@ const {
 } = require("../controllers/productController");
 
 
-import cloudinary from "../utils/cloudinary.js";
-import upload from "../middleware/uploadMiddleware.js"
+const cloudinary = require("../utils/cloudinary");
+const upload = require('../middleware/uploadMiddleware');
 import fs from "fs";
 
 // TODO: once auth is added, protect the write routes below with an
